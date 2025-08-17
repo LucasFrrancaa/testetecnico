@@ -1,0 +1,12 @@
+bean\PagamentoBean.class
+repository\Modelo.class
+repository\PagamentoDao.class
+com\exemplo\ExemploBean.class
+bean\ProdutoBean.class
+bean\UsuarioBean.class
+model\Pagamentos.class
+repository\ProdutoDao.class
+model\Produto.class
+Control\HibernateUtil.class
+repository\UsuarioDao.class
+model\Usuarios.class

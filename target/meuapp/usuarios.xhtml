@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html
+        xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui"
+>
+<h:head>
+  <title>Gestão de Usuários</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</h:head>
+
+<h:body>
+  <!-- 1 FORM para toda a página -->
+  <h:form id="formPrincipal">
+
+    <p:messages id="messages" showDetail="true" closable="true" />
+
+    <!-- ========== Cadastro ========== -->
+    <p:panel header="Cadastro de Usuários" style="margin-bottom:15px">
+      <p:panelGrid columns="2" layout="grid" styleClass="p-fluid">
+
+        <p:outputLabel for="nome" value="Nome:" />
+        <p:inputText id="nome" value="#{usuarioBean.usuario.nome}" required="true" requiredMessage="Nome é obrigatório"/>
+
+        <p:outputLabel for="email" value="Email:" />
+        <p:inputText id="email" value="#{usuarioBean.usuario.email}" required="true" requiredMessage="Email é obrigatório"/>
+
+        <p:commandButton value="Salvar"  icon="pi pi-save"   action="#{usuarioBean.incluir}" update="formPrincipal"/>
+        <p:commandButton value="Alterar" icon="pi pi-pencil" action="#{usuarioBean.alterar}" update="formPrincipal"/>
+        <p:commandButton value="Limpar"  icon="pi pi-times"  action="#{usuarioBean.limpar}"  update="formPrincipal" immediate="true"/>
+
+      </p:panelGrid>
+    </p:panel>
+
+    <!-- ========== Lista ========== -->
+    <p:panel header="Lista de Usuários">
+      <p:dataTable id="tabela" value="#{usuarioBean.usuarios}" var="usuario" rows="10" paginator="true"
+                   emptyMessage="Nenhum usuário encontrado">
+
+        <p:column headerText="ID">
+          <h:outputText value="#{usuario.id}"/>
+        </p:column>
+
+        <p:column headerText="Nome">
+          <h:outputText value="#{usuario.nome}"/>
+        </p:column>
+
+        <p:column headerText="Email">
+          <h:outputText value="#{usuario.email}"/>
+        </p:column>
+
+        <p:column headerText="Ações" style="width:140px">
+          <p:commandButton icon="pi pi-pencil" title="Editar"
+                           action="#{usuarioBean.editar(usuario)}" update="formPrincipal"
+                           style="margin-right:5px"/>
+
+          <p:commandButton icon="pi pi-trash" title="Excluir"
+                           action="#{usuarioBean.excluir(usuario)}" update="formPrincipal">
+            <p:confirm header="Confirmação" message="Deseja realmente excluir este usuário?" icon="pi pi-exclamation-triangle"/>
+          </p:commandButton>
+        </p:column>
+      </p:dataTable>
+    </p:panel>
+
+    <!-- Dialog de confirmação -->
+    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+      <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
+      <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"  icon="pi pi-times"/>
+    </p:confirmDialog>
+
+    <!-- Link -->
+    <div style="margin-top:15px; text-align:center">
+      <p:link href="telainicial.xhtml" value="Voltar ao Menu Principal"/>
+    </div>
+
+  </h:form>
+</h:body>
+</html>
