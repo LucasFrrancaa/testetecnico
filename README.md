@@ -1,4 +1,4 @@
-# Sistema de Controle de Estoque
+ # Sistema de Controle de Estoque
 
 **Teste Técnico - Digiboard Eletrônica da Amazônia**  
 **Desenvolvedor Full Stack - Java**  
@@ -55,47 +55,8 @@ Sistema web para controle de estoque desenvolvido com Java 8, JSF 2.3, PrimeFace
 3. **pagamentos** - Registro de vendas/movimentações
 
 ### Scripts SQL:
-- `sql/create_database.sql` - Criação das tabelas e índices
-- `sql/insert_sample_data.sql` - Dados de exemplo para teste
-
-## 📦 Estrutura do Projeto
-
-```
-testetecnico/
-├── pom.xml                           # Configuração Maven
-├── README.md                         # Documentação do projeto
-├── sql/                              # Scripts SQL
-│   ├── create_database.sql           # Criação do banco
-│   └── insert_sample_data.sql        # Dados de exemplo
-├── src/main/
-│   ├── java/
-│   │   ├── bean/                     # Controllers JSF
-│   │   │   ├── UsuarioBean.java
-│   │   │   ├── ProdutoBean.java
-│   │   │   └── PagamentoBean.java
-│   │   ├── control/
-│   │   │   └── HibernateUtil.java    # Configuração Hibernate
-│   │   ├── model/                    # Entidades JPA
-│   │   │   ├── Usuarios.java
-│   │   │   ├── Produto.java
-│   │   │   └── Pagamentos.java
-│   │   └── repository/               # DAOs
-│   │       ├── Modelo.java
-│   │       ├── UsuarioDao.java
-│   │       ├── ProdutoDao.java
-│   │       └── PagamentoDao.java
-│   ├── resources/
-│   │   └── hibernate.cfg.xml         # Configuração Hibernate
-│   └── webapp/
-│       ├── telainicial.xhtml         # Página inicial
-│       ├── usuarios.xhtml            # Gestão de usuários
-│       ├── produtos.xhtml            # Gestão de produtos
-│       ├── pagamentos.xhtml          # Processamento de pagamentos
-│       └── WEB-INF/
-│           ├── web.xml              # Configuração web
-│           └── bean.xml             # Configuração CDI
-└── target/                          # Arquivos compilados
-```
+- `create_database.sql` - Criação das tabelas e índices
+- `insert_sample_data.sql` - Dados de exemplo para teste
 
 ## ⚙️ Configuração e Instalação
 
@@ -108,19 +69,15 @@ testetecnico/
 ### 1. **Configuração do Banco de Dados**
 
 ```sql
--- Criar banco de dados
-CREATE DATABASE testetecnico;
-
--- Executar o script de criação das tabelas
-psql -d testetecnico -f sql/create_database.sql
-
--- (Opcional) Inserir dados de exemplo
-psql -d testetecnico -f sql/insert_sample_data.sql
+ 1 - Basicamente copiar e colar os scrips da pasta SQL na aba de query tool do postgres para criar o banco e tabelas 
+ 2 - Depois eexecutar o script com os inser de exemplo
 ```
 
 ### 2. **Configuração da Aplicação**
 
 Editar o arquivo `src/main/resources/hibernate.cfg.xml`:
+
+**Obs:** Verificar qual banco vai utilizar, nesse projeto utilizei o Postgres
 
 ```xml
 <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/testetecnico</property>
@@ -129,9 +86,26 @@ Editar o arquivo `src/main/resources/hibernate.cfg.xml`:
 ```
 
 ### 3. **Compilação e Deploy**
-
+**Obs:** Confesso que nessa parte de compilação e deploy tive um pouco de dor de cabeça, uns amigos me ajudaram e consegui rodar 'setando' meu servidor Tomcat direto pela IDE que utilizaei, no caso o Intelij, vou deixar o link de um tutorial que segui:  
+[Como configurar o Tomcat no IntelliJ](https://cursos.alura.com.br/forum/topico-duvida-como-posso-configurar-o-tomcat-no-intelij-375178#:~:text=Abra%20o%20IntelliJ%20e%20v%C3%A1,onde%20o%20TomCat%20foi%20instalado.)
 ```bash
-# Compilar o projeto
+# Compilar o projeto - Essa forma é mais 'automatica'
+1 - Primeiro, você precisa baixar e instalar o TomCat. Você pode fazer isso no site oficial do Apache TomCat.
+
+2 - Abra o IntelliJ e vá até "File" > "Settings" (ou use o atalho CTRL+ALT+S).
+
+3 - No menu de configurações, vá até "Build, Execution, Deployment" > "Application Servers".
+
+4 - Clique no '+' e escolha 'TomCat Server'.
+
+5 - Agora você precisa apontar para a pasta onde o TomCat foi instalado. Clique em 'Configure...' e navegue até a pasta de instalação do TomCat.
+
+7 - Clique 'OK' para fechar as janelas e salvar as configurações.
+
+Agora, quando você criar um novo projeto, poderá escolher o TomCat como seu servidor de aplicação.
+```
+```bash
+# Compilar o projeto - Essa forma é mais manual
 mvn clean package
 
 # O arquivo WAR será gerado em target/meuapp.war
@@ -169,39 +143,6 @@ Abrir o navegador em: `http://localhost:8080/meuapp/telainicial.xhtml`
 - **Paginação** - Tabelas com paginação automática
 - **Confirmação de Exclusão** - Diálogos de confirmação para operações críticas
 - **Validação em Tempo Real** - Feedback imediato de erros de validação
-
-## 🧪 Dados de Teste
-
-O sistema vem com dados de exemplo pré-configurados:
-
-### Usuários:
-- João Silva - joao.silva@email.com
-- Maria Santos - maria.santos@email.com
-- Pedro Oliveira - pedro.oliveira@email.com
-- Ana Costa - ana.costa@email.com
-
-### Produtos:
-- Diversos produtos eletrônicos com diferentes datas de validade
-- Produtos com estoque variado para teste
-- Alguns produtos próximos ao vencimento
-
-## 📝 Observações Técnicas
-
-- **Arquitetura MVC** - Separação clara entre Model, View e Controller
-- **JPA/Hibernate** - Mapeamento objeto-relacional com relacionamentos
-- **CDI** - Injeção de dependências moderna
-- **PrimeFaces** - Componentes ricos para interface web
-- **PostgreSQL** - Banco relacional com constraints e índices
-- **Maven** - Gerenciamento de dependências e build
-
-## 📞 Contato
-
-Para dúvidas ou esclarecimentos sobre o projeto, entre em contato através dos meios fornecidos no processo seletivo.
-
----
-
-**Desenvolvido para o teste técnico da Digiboard Eletrônica da Amazônia**  
-**Data: Agosto/2025**
 
 ## Add your files
 

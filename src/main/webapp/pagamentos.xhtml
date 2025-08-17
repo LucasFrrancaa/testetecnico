@@ -14,45 +14,55 @@
   <h:form id="formPrincipal">
 
     <p:messages id="messages" showDetail="true" closable="true"/>
+    <div style="display:flex; justify-content:flex-end; margin-bottom:10px;">
+      <p:link href="telainicial.xhtml" styleClass="p-button-text">
+        <i class="pi pi-arrow-left" style="margin-right:5px;"></i>
+        Voltar ao Menu Principal
+      </p:link>
+    </div>
 
-    <!-- ========== Processar Pagamento ========== -->
     <p:panel header="Processar Pagamento" style="margin-bottom:15px">
-      <p:panelGrid columns="2" layout="grid" styleClass="p-fluid">
+      <div style="display:flex; gap:15px; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="display:flex; flex-direction:column;">
+          <p:outputLabel value="Usuário:" for="usuario"/>
+          <p:selectOneMenu id="usuario"
+                           value="#{pagamentoBean.usuarioSelecionadoId}"
+                           required="true" requiredMessage="Selecione um usuário">
+            <f:selectItem itemLabel="Selecione um usuário" itemValue="" noSelectionOption="true"/>
+            <f:selectItems value="#{pagamentoBean.usuarios}" var="u"
+                           itemLabel="#{u.nome}" itemValue="#{u.id}"/>
+          </p:selectOneMenu>
+        </div>
 
-        <p:outputLabel value="Usuário:" for="usuario"/>
-        <p:selectOneMenu id="usuario"
-                         value="#{pagamentoBean.usuarioSelecionadoId}"
-                         required="true" requiredMessage="Selecione um usuário">
-          <f:selectItem itemLabel="Selecione um usuário" itemValue="" noSelectionOption="true"/>
-          <f:selectItems value="#{pagamentoBean.usuarios}" var="u"
-                         itemLabel="#{u.nome}" itemValue="#{u.id}"/>
-        </p:selectOneMenu>
+        <div style="display:flex; flex-direction:column;">
+          <p:outputLabel value="Produto:" for="produto"/>
+          <p:selectOneMenu id="produto"
+                           value="#{pagamentoBean.produtoSelecionadoId}"
+                           required="true" requiredMessage="Selecione um produto">
+            <f:selectItem  itemLabel="Selecione um produto"  itemValue="" noSelectionOption="true"/>
+            <f:selectItems value="#{pagamentoBean.produtosDisponiveis}" var="p"
+                           itemLabel="#{p.descricao} (#{p.quantidade} disponível)" itemValue="#{p.id}"/>
+            <p:ajax listener="#{pagamentoBean.onProdutoChange}" update="messages"/>
+          </p:selectOneMenu>
+        </div>
 
-        <p:outputLabel value="Produto:" for="produto"/>
-        <p:selectOneMenu id="produto"
-                         value="#{pagamentoBean.produtoSelecionadoId}"
-                         required="true" requiredMessage="Selecione um produto">
-          <f:selectItem  itemLabel="Selecione um produto"  itemValue="" noSelectionOption="true"/>
-          <f:selectItems value="#{pagamentoBean.produtosDisponiveis}" var="p"
-                         itemLabel="#{p.descricao} (#{p.quantidade} disponível)" itemValue="#{p.id}"/>
-          <p:ajax listener="#{pagamentoBean.onProdutoChange}" update="messages"/>
-        </p:selectOneMenu>
-
-        <p:outputLabel value="Quantidade:" for="quantidade"/>
-        <p:inputNumber id="quantidade" value="#{pagamentoBean.quantidadeSolicitada}"
-                       decimalPlaces="0" required="true" requiredMessage="Informe a quantidade"
-                       minValue="1"/>
-
+        <div style="display:flex; flex-direction:column;">
+          <p:outputLabel value="Quantidade:" for="quantidade"/>
+          <p:inputNumber id="quantidade" value="#{pagamentoBean.quantidadeSolicitada}"
+                         decimalPlaces="0" required="true" requiredMessage="Informe a quantidade"
+                         minValue="1"/>
+        </div>
+      </div>
+      <div style="display:flex; gap:10px;">
         <p:commandButton value="Processar"  icon="pi pi-check"
                          action="#{pagamentoBean.processarPagamento}"
                          update="formPrincipal"/>
         <p:commandButton value="Limpar"     icon="pi pi-times"
                          action="#{pagamentoBean.limpar}"
                          update="formPrincipal" immediate="true"/>
-      </p:panelGrid>
-    </p:panel>
+      </div>
 
-    <!-- ========== Histórico ========== -->
+    </p:panel>
     <p:panel header="Histórico de Pagamentos">
       <p:dataTable id="tabela" value="#{pagamentoBean.pagamentos}" var="pgto"
                    paginator="true" rows="10" emptyMessage="Nenhum pagamento encontrado">
@@ -91,10 +101,8 @@
       </p:dataTable>
     </p:panel>
 
-    <div style="margin-top:15px; text-align:center">
-      <p:link href="telainicial.xhtml" value="Voltar ao Menu Principal"/>
-    </div>
-
   </h:form>
 </h:body>
+
+
 </html>

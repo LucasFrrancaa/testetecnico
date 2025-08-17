@@ -18,7 +18,6 @@
 
   <dependencies>
 
-    <!-- JSF API -->
     <dependency>
       <groupId>javax.faces</groupId>
       <artifactId>javax.faces-api</artifactId>
@@ -26,7 +25,6 @@
       <scope>provided</scope>
     </dependency>
 
-    <!-- JSF Implementation -->
     <dependency>
       <groupId>org.glassfish</groupId>
       <artifactId>javax.faces</artifactId>
@@ -34,49 +32,42 @@
     </dependency>
 
 
-    <!-- PrimeFaces -->
     <dependency>
       <groupId>org.primefaces</groupId>
       <artifactId>primefaces</artifactId>
       <version>8.0</version>
     </dependency>
 
-    <!-- JPA -->
     <dependency>
       <groupId>javax.persistence</groupId>
       <artifactId>javax.persistence-api</artifactId>
       <version>2.2</version>
     </dependency>
 
-    <!-- Hibernate -->
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
       <version>5.4.33.Final</version>
     </dependency>
 
-    <!-- Hibernate Validator -->
     <dependency>
       <groupId>org.hibernate.validator</groupId>
       <artifactId>hibernate-validator</artifactId>
       <version>6.0.20.Final</version>
     </dependency>
 
-    <!-- CDI / Weld -->
     <dependency>
       <groupId>org.jboss.weld.servlet</groupId>
       <artifactId>weld-servlet-core</artifactId>
       <version>3.1.9.Final</version>
     </dependency>
 
-    <!-- PostgreSQL JDBC Driver -->
     <dependency>
       <groupId>org.postgresql</groupId>
       <artifactId>postgresql</artifactId>
       <version>42.6.0</version>
     </dependency>
 
-    <!-- Servlet API -->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>javax.servlet-api</artifactId>
@@ -98,7 +89,6 @@
         </configuration>
       </plugin>
       
-      <!-- Plugin do Tomcat para execução rápida -->
       <plugin>
         <groupId>org.apache.tomcat.maven</groupId>
         <artifactId>tomcat7-maven-plugin</artifactId>
@@ -109,7 +99,6 @@
         </configuration>
       </plugin>
       
-      <!-- Plugin do Jetty como alternativa -->
       <plugin>
         <groupId>org.eclipse.jetty</groupId>
         <artifactId>jetty-maven-plugin</artifactId>

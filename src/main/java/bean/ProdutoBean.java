@@ -123,7 +123,6 @@ public class ProdutoBean implements Serializable {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, message, null));
     }
     
-    // Getters e Setters
     public Produto getProduto() {
         return produto;
     }

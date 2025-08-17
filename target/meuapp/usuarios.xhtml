@@ -11,32 +11,40 @@
 </h:head>
 
 <h:body>
-  <!-- 1 FORM para toda a página -->
   <h:form id="formPrincipal">
 
     <p:messages id="messages" showDetail="true" closable="true" />
+      <p:panel header="Cadastro de Usuários" style="margin-bottom:15px">
 
-    <!-- ========== Cadastro ========== -->
-    <p:panel header="Cadastro de Usuários" style="margin-bottom:15px">
-      <p:panelGrid columns="2" layout="grid" styleClass="p-fluid">
+        <div style="display:flex; justify-content:flex-end; margin-bottom:10px;">
+          <p:link href="telainicial.xhtml" styleClass="p-button-text">
+            <i class="pi pi-arrow-left" style="margin-right:5px;"></i>
+            Voltar ao Menu Principal
+          </p:link>
+        </div>
 
-        <p:outputLabel for="nome" value="Nome:" />
-        <p:inputText id="nome" value="#{usuarioBean.usuario.nome}" required="true" requiredMessage="Nome é obrigatório"/>
+        <div style="display:flex; gap:10px; align-items:center; margin-bottom:10px;">
+          <div style="display:flex; flex-direction:column;">
+            <p:outputLabel for="nome" value="Nome:" />
+            <p:inputText id="nome" value="#{usuarioBean.usuario.nome}" required="true" requiredMessage="Nome é obrigatório"/>
+          </div>
 
-        <p:outputLabel for="email" value="Email:" />
-        <p:inputText id="email" value="#{usuarioBean.usuario.email}" required="true" requiredMessage="Email é obrigatório"/>
+          <div style="display:flex; flex-direction:column;">
+            <p:outputLabel for="email" value="Email:" />
+            <p:inputText id="email" value="#{usuarioBean.usuario.email}" required="true" requiredMessage="Email é obrigatório"/>
+          </div>
+        </div>
 
-        <p:commandButton value="Salvar"  icon="pi pi-save"   action="#{usuarioBean.incluir}" update="formPrincipal"/>
-        <p:commandButton value="Alterar" icon="pi pi-pencil" action="#{usuarioBean.alterar}" update="formPrincipal"/>
-        <p:commandButton value="Limpar"  icon="pi pi-times"  action="#{usuarioBean.limpar}"  update="formPrincipal" immediate="true"/>
+        <div style="display:flex; gap:10px;">
+          <p:commandButton value="Salvar" icon="pi pi-save" action="#{usuarioBean.incluir}" update="formPrincipal"/>
+          <p:commandButton value="Alterar" icon="pi pi-pencil" action="#{usuarioBean.alterar}" update="formPrincipal"/>
+          <p:commandButton value="Limpar" icon="pi pi-times" action="#{usuarioBean.limpar}" update="formPrincipal" process="@this"/>
+        </div>
 
-      </p:panelGrid>
-    </p:panel>
-
-    <!-- ========== Lista ========== -->
+      </p:panel>
     <p:panel header="Lista de Usuários">
       <p:dataTable id="tabela" value="#{usuarioBean.usuarios}" var="usuario" rows="10" paginator="true"
-                   emptyMessage="Nenhum usuário encontrado">
+                   emptyMessage="Nenhum usuário encontrado"  paginatorPosition="top">
 
         <p:column headerText="ID">
           <h:outputText value="#{usuario.id}"/>
@@ -52,27 +60,21 @@
 
         <p:column headerText="Ações" style="width:140px">
           <p:commandButton icon="pi pi-pencil" title="Editar"
-                           action="#{usuarioBean.editar(usuario)}" update="formPrincipal"
+                           action="#{usuarioBean.editar(usuario)}" update="formPrincipal"  process="@this"
                            style="margin-right:5px"/>
 
           <p:commandButton icon="pi pi-trash" title="Excluir"
-                           action="#{usuarioBean.excluir(usuario)}" update="formPrincipal">
+                           action="#{usuarioBean.excluir(usuario)}" update="formPrincipal"  process="@this">
             <p:confirm header="Confirmação" message="Deseja realmente excluir este usuário?" icon="pi pi-exclamation-triangle"/>
           </p:commandButton>
         </p:column>
       </p:dataTable>
     </p:panel>
 
-    <!-- Dialog de confirmação -->
     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
       <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
       <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"  icon="pi pi-times"/>
     </p:confirmDialog>
-
-    <!-- Link -->
-    <div style="margin-top:15px; text-align:center">
-      <p:link href="telainicial.xhtml" value="Voltar ao Menu Principal"/>
-    </div>
 
   </h:form>
 </h:body>

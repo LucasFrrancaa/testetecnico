@@ -15,41 +15,58 @@
 
     <p:messages id="messages" showDetail="true" closable="true"/>
 
-    <!-- Cadastro de produtos -->
+    <div style="display:flex; justify-content:flex-end; margin-bottom:10px;">
+      <p:link href="telainicial.xhtml" styleClass="p-button-text">
+        <i class="pi pi-arrow-left" style="margin-right:5px;"></i>
+        Voltar ao Menu Principal
+      </p:link>
+    </div>
+
     <p:panel header="Cadastro de Produtos" style="margin-bottom:15px">
-      <p:panelGrid columns="2" layout="grid" styleClass="p-fluid">
 
-        <p:outputLabel value="Código:" for="codigo"/>
-        <p:inputText id="codigo" value="#{produtoBean.produto.codigo}" required="true"
-                     requiredMessage="Código é obrigatório"/>
+      <div style="display:flex; gap:15px; flex-wrap:wrap; margin-bottom:10px;">
+        <div style="display:flex; flex-direction:column;">
+          <p:outputLabel value="Código:" for="codigo"/>
+          <p:inputText id="codigo" value="#{produtoBean.produto.codigo}" required="true"
+                       requiredMessage="Código é obrigatório"/>
+        </div>
 
-        <p:outputLabel value="Descrição:" for="descricao"/>
-        <p:inputText id="descricao" value="#{produtoBean.produto.descricao}" required="true"
-                     requiredMessage="Descrição é obrigatória"/>
+        <div style="display:flex; flex-direction:column;">
+          <p:outputLabel value="Descrição:" for="descricao"/>
+          <p:inputText id="descricao" value="#{produtoBean.produto.descricao}" required="true"
+                       requiredMessage="Descrição é obrigatória"/>
+        </div>
 
-        <p:outputLabel value="Data Entrada:" for="dataEntrada"/>
-        <p:calendar id="dataEntrada" value="#{produtoBean.produto.data_entrada}" pattern="dd/MM/yyyy"
-                    required="true"/>
+        <div style="display:flex; flex-direction:column;">
+          <p:outputLabel value="Data Entrada:" for="dataEntrada"/>
+          <p:calendar id="dataEntrada" value="#{produtoBean.produto.data_entrada}" pattern="dd/MM/yyyy"
+                      required="true"/>
+        </div>
 
-        <p:outputLabel value="Data Validade:" for="dataValidade"/>
-        <p:calendar id="dataValidade" value="#{produtoBean.produto.data_validade}" pattern="dd/MM/yyyy"
-                    required="true"/>
+        <div style="display:flex; flex-direction:column;">
+          <p:outputLabel value="Data Validade:" for="dataValidade"/>
+          <p:calendar id="dataValidade" value="#{produtoBean.produto.data_validade}" pattern="dd/MM/yyyy"
+                      required="true"/>
+        </div>
 
-        <p:outputLabel value="Quantidade:" for="quantidade"/>
-        <p:inputNumber id="quantidade" value="#{produtoBean.produto.quantidade}" decimalPlaces="0" minValue="0"
-                       required="true"/>
+        <div style="display:flex; flex-direction:column;">
+          <p:outputLabel value="Quantidade:" for="quantidade"/>
+          <p:inputNumber id="quantidade" value="#{produtoBean.produto.quantidade}" decimalPlaces="0" minValue="0"
+                         required="true"/>
+        </div>
+      </div>
 
+      <div style="display:flex; gap:10px;">
         <p:commandButton value="Salvar" icon="pi pi-save" action="#{produtoBean.incluir}" update="formPrincipal"/>
         <p:commandButton value="Alterar" icon="pi pi-pencil" action="#{produtoBean.alterar}" update="formPrincipal"/>
-        <p:commandButton value="Limpar" icon="pi pi-times" action="#{produtoBean.limpar}" update="formPrincipal"
-                         immediate="true"/>
-      </p:panelGrid>
+        <p:commandButton value="Limpar" icon="pi pi-times" action="#{produtoBean.limpar}" update="formPrincipal" process="@this"/>
+      </div>
+
     </p:panel>
 
-    <!-- Lista de produtos -->
     <p:panel header="Lista de Produtos">
       <p:dataTable id="tabela" value="#{produtoBean.produtos}" var="produto" paginator="true" rows="10"
-                   emptyMessage="Nenhum produto encontrado">
+                   emptyMessage="Nenhum produto encontrado" paginatorPosition="top">
 
         <p:column headerText="ID">
           <h:outputText value="#{produto.id}"/>
@@ -85,10 +102,10 @@
 
         <p:column headerText="Ações" style="width:140px">
           <p:commandButton icon="pi pi-pencil" title="Editar"
-                           action="#{produtoBean.editar(produto)}"
+                           action="#{produtoBean.editar(produto)}" process="@this"
                            update="formPrincipal" style="margin-right:5px"/>
           <p:commandButton icon="pi pi-trash" title="Excluir"
-                           action="#{produtoBean.excluir(produto)}"
+                           action="#{produtoBean.excluir(produto)}" process="@this"
                            update="formPrincipal">
             <p:confirm header="Confirmação" message="Deseja realmente excluir este produto?"
                        icon="pi pi-exclamation-triangle"/>
@@ -98,17 +115,12 @@
       </p:dataTable>
     </p:panel>
 
-    <!-- Diálogo de confirmação -->
     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
       <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="pi pi-check"/>
       <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no"  icon="pi pi-times"/>
     </p:confirmDialog>
 
-    <!-- Link de retorno -->
-    <div style="margin-top:15px; text-align:center">
-      <p:link href="telainicial.xhtml" value="Voltar ao Menu Principal"/>
-    </div>
-
   </h:form>
 </h:body>
+
 </html>

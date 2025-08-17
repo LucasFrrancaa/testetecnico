@@ -1,11 +1,7 @@
 -- Script para criação do banco de dados PostgreSQL
--- Teste Técnico - Sistema de Controle de Estoque
 
 -- Criação do banco de dados
 CREATE DATABASE testetecnico;
-
--- Conectar ao banco de dados criado
-\c testetecnico;
 
 -- Tabela de usuários
 CREATE TABLE usuarios (
@@ -39,10 +35,3 @@ CREATE TABLE pagamentos (
     CONSTRAINT chk_quantidade_pagamento_positiva CHECK (quantidade > 0)
 );
 
--- Índices para melhor performance
-CREATE INDEX idx_usuarios_email ON usuarios(email);
-CREATE INDEX idx_produto_codigo ON produto(codigo);
-CREATE INDEX idx_produto_validade ON produto(data_validade);
-CREATE INDEX idx_pagamentos_usuario ON pagamentos(usuario_id);
-CREATE INDEX idx_pagamentos_produto ON pagamentos(produto_id);
-CREATE INDEX idx_pagamentos_data ON pagamentos(data_pagamento);

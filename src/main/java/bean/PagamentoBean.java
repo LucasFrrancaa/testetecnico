@@ -46,26 +46,21 @@ public class PagamentoBean implements Serializable {
     public void processarPagamento() {
         try {
             if (validarPagamento()) {
-                // Buscar entidades pelos IDs
                 Usuarios usuario = buscarUsuarioPorId(usuarioSelecionadoId);
                 Produto produto = buscarProdutoPorId(produtoSelecionadoId);
-                
-                // Criar novo pagamento
+
                 Pagamentos novoPagamento = new Pagamentos();
                 novoPagamento.setUsuario(usuario);
                 novoPagamento.setProduto(produto);
                 novoPagamento.setQuantidade(quantidadeSolicitada);
                 novoPagamento.setData_pagamento(new Date());
-                
-                // Calcular data de entrega (3 dias úteis)
+
                 Date dataEntrega = calcularDataEntrega(new Date(), 3);
                 novoPagamento.setData_entrega(dataEntrega);
-                
-                // Baixar estoque
+
                 produto.setQuantidade(produto.getQuantidade() - quantidadeSolicitada);
                 produtoDao.alterar(produto);
-                
-                // Registrar pagamento
+
                 pagamentoDao.incluir(novoPagamento);
                 
                 addMessage("Pagamento processado com sucesso!", FacesMessage.SEVERITY_INFO);
@@ -78,7 +73,6 @@ public class PagamentoBean implements Serializable {
     }
     
     public void onProdutoChange() {
-        // Atualizar informações quando produto for selecionado
         if (produtoSelecionadoId != null) {
             Produto produto = buscarProdutoPorId(produtoSelecionadoId);
             if (produto != null && isProdutoVencido(produto)) {
@@ -108,14 +102,12 @@ public class PagamentoBean implements Serializable {
             addMessage("Produto não encontrado", FacesMessage.SEVERITY_ERROR);
             return false;
         }
-        
-        // Verificar validade
+
         if (isProdutoVencido(produto)) {
             addMessage("Não é possível realizar pagamento com produto vencido", FacesMessage.SEVERITY_ERROR);
             return false;
         }
-        
-        // Verificar estoque
+
         if (quantidadeSolicitada > produto.getQuantidade()) {
             addMessage("Quantidade solicitada (" + quantidadeSolicitada + 
                       ") é maior que o estoque disponível (" + produto.getQuantidade() + ")", 
@@ -135,9 +127,8 @@ public class PagamentoBean implements Serializable {
         int diasAdicionados = 0;
         
         while (diasAdicionados < diasUteis) {
-            dataEntrega = new Date(dataEntrega.getTime() + 24 * 60 * 60 * 1000); // Adiciona 1 dia
-            
-            // Verificar se não é fim de semana (simplificado)
+            dataEntrega = new Date(dataEntrega.getTime() + 24 * 60 * 60 * 1000);
+
             java.util.Calendar cal = java.util.Calendar.getInstance();
             cal.setTime(dataEntrega);
             int dayOfWeek = cal.get(java.util.Calendar.DAY_OF_WEEK);
@@ -169,8 +160,7 @@ public class PagamentoBean implements Serializable {
             usuarios = usuarioDao.listar();
             produtos = produtoDao.listar();
             pagamentos = pagamentoDao.listar();
-            
-            // Filtrar apenas produtos válidos (não vencidos e com estoque)
+
             produtosDisponiveis = produtos.stream()
                     .filter(p -> !isProdutoVencido(p) && p.getQuantidade() > 0)
                     .collect(Collectors.toList());
@@ -189,8 +179,7 @@ public class PagamentoBean implements Serializable {
     private void addMessage(String message, FacesMessage.Severity severity) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, message, null));
     }
-    
-    // Getters e Setters
+
     public Pagamentos getPagamento() {
         return pagamento;
     }

@@ -98,23 +98,11 @@ public class UsuarioBean implements Serializable {
     public void limpar() {
         this.usuario = new Usuarios();
     }
-    
-    public void testarConexao() {
-        try {
-            // Teste básico para verificar se o Hibernate está funcionando
-            usuarios = usuarioDao.listar();
-            addMessage("Conexão com banco OK! Total de usuários: " + usuarios.size(), FacesMessage.SEVERITY_INFO);
-        } catch (Exception e) {
-            addMessage("Erro na conexão: " + e.getMessage(), FacesMessage.SEVERITY_ERROR);
-            e.printStackTrace();
-        }
-    }
-    
+
     private void addMessage(String message, FacesMessage.Severity severity) {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(severity, message, null));
     }
-    
-    // Getters e Setters
+
     public Usuarios getUsuario() {
         return usuario;
     }
