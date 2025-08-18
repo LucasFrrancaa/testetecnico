@@ -13,17 +13,17 @@ import java.util.List;
 @ManagedBean
 @ViewScoped
 public class UsuarioBean implements Serializable {
-    
+
     private Usuarios usuario;
     private List<Usuarios> usuarios;
     private UsuarioDao usuarioDao;
-    
+
     public UsuarioBean() {
         this.usuario = new Usuarios();
         this.usuarioDao = new UsuarioDao();
         carregarUsuarios();
     }
-    
+
     public void incluir() {
         try {
             if (validarCampos()) {
@@ -36,7 +36,7 @@ public class UsuarioBean implements Serializable {
             addMessage("Erro ao incluir usuário: " + e.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
     }
-    
+
     public void alterar() {
         try {
             if (validarCampos()) {
@@ -49,7 +49,7 @@ public class UsuarioBean implements Serializable {
             addMessage("Erro ao alterar usuário: " + e.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
     }
-    
+
     public void excluir(Usuarios usuario) {
         try {
             usuarioDao.exclui(usuario);
@@ -59,11 +59,11 @@ public class UsuarioBean implements Serializable {
             addMessage("Erro ao excluir usuário: " + e.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
     }
-    
+
     public void editar(Usuarios usuario) {
         this.usuario = usuario;
     }
-    
+
     private void carregarUsuarios() {
         try {
             usuarios = usuarioDao.listar();
@@ -71,30 +71,30 @@ public class UsuarioBean implements Serializable {
             addMessage("Erro ao carregar usuários: " + e.getMessage(), FacesMessage.SEVERITY_ERROR);
         }
     }
-    
+
     private boolean validarCampos() {
         if (usuario.getNome() == null || usuario.getNome().trim().isEmpty()) {
             addMessage("Nome é obrigatório", FacesMessage.SEVERITY_ERROR);
             return false;
         }
-        
+
         if (usuario.getEmail() == null || usuario.getEmail().trim().isEmpty()) {
             addMessage("Email é obrigatório", FacesMessage.SEVERITY_ERROR);
             return false;
         }
-        
+
         if (!isValidEmail(usuario.getEmail())) {
             addMessage("Email deve ter formato válido", FacesMessage.SEVERITY_ERROR);
             return false;
         }
-        
+
         return true;
     }
-    
+
     private boolean isValidEmail(String email) {
         return email.contains("@") && email.contains(".");
     }
-    
+
     public void limpar() {
         this.usuario = new Usuarios();
     }
@@ -106,15 +106,15 @@ public class UsuarioBean implements Serializable {
     public Usuarios getUsuario() {
         return usuario;
     }
-    
+
     public void setUsuario(Usuarios usuario) {
         this.usuario = usuario;
     }
-    
+
     public List<Usuarios> getUsuarios() {
         return usuarios;
     }
-    
+
     public void setUsuarios(List<Usuarios> usuarios) {
         this.usuarios = usuarios;
     }

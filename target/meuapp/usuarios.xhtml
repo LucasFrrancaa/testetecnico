@@ -14,34 +14,34 @@
   <h:form id="formPrincipal">
 
     <p:messages id="messages" showDetail="true" closable="true" />
-      <p:panel header="Cadastro de Usuários" style="margin-bottom:15px">
+    <p:panel header="Cadastro de Usuários" style="margin-bottom:15px">
 
-        <div style="display:flex; justify-content:flex-end; margin-bottom:10px;">
-          <p:link href="telainicial.xhtml" styleClass="p-button-text">
-            <i class="pi pi-arrow-left" style="margin-right:5px;"></i>
-            Voltar ao Menu Principal
-          </p:link>
+      <div style="display:flex; justify-content:flex-end; margin-bottom:10px;">
+        <p:link href="telainicial.xhtml" styleClass="p-button-text">
+          <i class="pi pi-arrow-left" style="margin-right:5px;"></i>
+          Voltar ao Menu Principal
+        </p:link>
+      </div>
+
+      <div style="display:flex; gap:10px; align-items:center; margin-bottom:10px;">
+        <div style="display:flex; flex-direction:column;">
+          <p:outputLabel for="nome" value="Nome:" />
+          <p:inputText id="nome" value="#{usuarioBean.usuario.nome}" required="true" requiredMessage="Nome é obrigatório"/>
         </div>
 
-        <div style="display:flex; gap:10px; align-items:center; margin-bottom:10px;">
-          <div style="display:flex; flex-direction:column;">
-            <p:outputLabel for="nome" value="Nome:" />
-            <p:inputText id="nome" value="#{usuarioBean.usuario.nome}" required="true" requiredMessage="Nome é obrigatório"/>
-          </div>
-
-          <div style="display:flex; flex-direction:column;">
-            <p:outputLabel for="email" value="Email:" />
-            <p:inputText id="email" value="#{usuarioBean.usuario.email}" required="true" requiredMessage="Email é obrigatório"/>
-          </div>
+        <div style="display:flex; flex-direction:column;">
+          <p:outputLabel for="email" value="Email:" />
+          <p:inputText id="email" value="#{usuarioBean.usuario.email}" required="true" requiredMessage="Email é obrigatório"/>
         </div>
+      </div>
 
-        <div style="display:flex; gap:10px;">
-          <p:commandButton value="Salvar" icon="pi pi-save" action="#{usuarioBean.incluir}" update="formPrincipal"/>
-          <p:commandButton value="Alterar" icon="pi pi-pencil" action="#{usuarioBean.alterar}" update="formPrincipal"/>
-          <p:commandButton value="Limpar" icon="pi pi-times" action="#{usuarioBean.limpar}" update="formPrincipal" process="@this"/>
-        </div>
+      <div style="display:flex; gap:10px;">
+        <p:commandButton value="Salvar" icon="pi pi-save" action="#{usuarioBean.incluir}" update="formPrincipal"/>
+        <p:commandButton value="Alterar" icon="pi pi-pencil" action="#{usuarioBean.alterar}" update="formPrincipal"/>
+        <p:commandButton value="Limpar" icon="pi pi-times" action="#{usuarioBean.limpar}" update="formPrincipal" process="@this"/>
+      </div>
 
-      </p:panel>
+    </p:panel>
     <p:panel header="Lista de Usuários">
       <p:dataTable id="tabela" value="#{usuarioBean.usuarios}" var="usuario" rows="10" paginator="true"
                    emptyMessage="Nenhum usuário encontrado"  paginatorPosition="top">

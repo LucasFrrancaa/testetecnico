@@ -35,6 +35,7 @@ public class ProdutoBean implements Serializable {
             }
         } catch (Exception e) {
             addMessage("Erro ao incluir produto: " + e.getMessage(), FacesMessage.SEVERITY_ERROR);
+            validarCampos();
         }
     }
     
